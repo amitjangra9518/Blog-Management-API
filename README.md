@@ -94,8 +94,7 @@ Users can search blog posts using keywords.
 Features:
 
 - Search posts by title
-- Search posts by content
-- Filter data efficiently
+
 
 
 Example:
