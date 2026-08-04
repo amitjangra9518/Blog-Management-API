@@ -11,7 +11,7 @@
 ![Maven](https://img.shields.io/badge/Maven-Build-red?style=for-the-badge&logo=apachemaven)
 ![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-green?style=for-the-badge&logo=swagger)
 
-A RESTful Blog Management API developed using Spring Boot that enables users to create, manage, search, and organize blog posts and categories with a clean layered architecture.
+A RESTful Blog Management API developed using **Spring Boot** that enables users to create, manage, organize, search, and share blog posts through well-structured REST APIs. The project follows a clean layered architecture and provides secure, scalable, and maintainable backend services.
 
 </div>
 
@@ -19,24 +19,27 @@ A RESTful Blog Management API developed using Spring Boot that enables users to 
 
 # 📖 About Project
 
-**Blog Management API** is a backend application developed using **Spring Boot**, **Spring Data JPA**, and **MySQL**.
+**Blog Management API** is a backend application developed using **Spring Boot**, **Spring Data JPA**, **Hibernate**, and **MySQL**.
 
-The application provides RESTful APIs for managing:
+The application provides REST APIs for managing:
 
 - 👤 Users
 - 📂 Categories
 - 📝 Blog Posts
+- 🖼 Image Upload & Download
 
-The project follows a layered architecture and implements backend development practices including:
+The project follows a layered architecture and implements modern backend development practices including:
 
 - DTO Pattern
 - Entity Relationship Mapping
-- ModelMapper Integration
+- ModelMapper
 - Bean Validation
 - Global Exception Handling
 - Pagination
 - Sorting
 - Searching
+- File Upload
+- File Download
 - Swagger/OpenAPI Documentation
 
 ---
@@ -45,100 +48,88 @@ The project follows a layered architecture and implements backend development pr
 
 ## 👤 User Management
 
-- Create new users
-- Update user information
-- Delete users
-- Get user by ID
-- Get all users
-- Manage user and post relationships
-
+- Create User
+- Update User
+- Delete User
+- Get User by ID
+- Get All Users
+- Manage User-Post Relationship
 
 ---
 
 ## 📂 Category Management
 
-- Create categories
-- Update categories
-- Delete categories
-- Get category by ID
-- Get all categories
-- Manage category and post relationships
-
+- Create Category
+- Update Category
+- Delete Category
+- Get Category by ID
+- Get All Categories
+- Manage Category-Post Relationship
 
 ---
 
 ## 📝 Blog Post Management
 
-- Create blog posts
-- Update posts
-- Delete posts
-- Get post by ID
-- Get all posts
-- Get posts by user
-- Get posts by category
-- Search posts using keywords
-- Pagination support
-- Sorting support
+- Create Blog Posts
+- Update Posts
+- Delete Posts
+- Get Post by ID
+- Get All Posts
+- Get Posts by User
+- Get Posts by Category
+- Search Posts by Title
+- Pagination Support
+- Sorting Support
 
+---
+
+## 🖼 Image Management
+
+- Upload Image for Blog Posts
+- Download/View Uploaded Images
+- Store Images on Local Server
+- Generate Unique File Names using UUID
+- Associate Images with Blog Posts
+- Multipart File Upload Support
 
 ---
 
 # 🔍 Search, Pagination & Sorting
 
-The application supports efficient data retrieval using Spring Data JPA features.
+The application supports efficient data retrieval using Spring Data JPA.
 
 ## 🔎 Searching
 
-Users can search blog posts using keywords.
+Search blog posts by title.
 
-Features:
+Example
 
-- Search posts by title
-
-
-
-Example:
-
-```
-GET /api/posts/search?keyword=spring
+```http
+GET /api/posts/search/{keywords}
 ```
 
 ---
 
 ## 📄 Pagination
 
-Pagination is implemented to efficiently handle large amounts of data.
+Retrieve blog posts page-wise.
 
-Features:
+Example
 
-- Page number based fetching
-- Custom page size support
-- Optimized database queries using Spring Data JPA
-
-
-Example:
-
-```
-GET /api/posts?pageNumber=0&pageSize=5
+```http
+GET /api/post?pageNumber=0&pageSize=5
 ```
 
 ---
 
 ## ↕️ Sorting
 
-The application supports sorting of data for better organization and retrieval.
+Retrieve blog posts in sorted order.
 
-Features:
+Example
 
-- Sort blog posts based on different fields
-- Dynamic sorting support using Spring Data JPA
-- Improve data organization and readability
-
-
-Example:
-
-```
-GET /api/posts?sortBy=addedDate
+```http
+GET /api/post?sortBy=addedDate
 ```
 
 ---
@@ -147,23 +138,23 @@ GET /api/posts?sortBy=addedDate
 
 The application uses **Jakarta Bean Validation**.
 
-Implemented validations:
+Implemented validations include:
 
-- Required field validation
-- Email format validation
-- Password validation
-- Post title validation
-- Content validation
-- Custom validation error messages
+- Required Field Validation
+- Email Validation
+- Password Validation
+- Post Title Validation
+- Content Validation
+- Custom Validation Messages
 
 ---
 
-# ⚠️ Exception Handling
+# ⚠ Exception Handling
 
 Centralized exception handling is implemented using:
 
 - `@RestControllerAdvice`
-- Custom Resource Not Found Exception
+- ResourceNotFoundException
 - Validation Exception Handling
 - Standard API Response Structure
 
@@ -171,11 +162,7 @@ Centralized exception handling is implemented using:
 
 # 📄 API Documentation
 
-Interactive API documentation is available using:
-
-- Swagger UI
-- OpenAPI Specification
-
+Interactive API documentation is available using Swagger.
 
 After starting the application, open:
 
@@ -200,28 +187,32 @@ http://localhost:9518/swagger-ui/index.html
 | ModelMapper | 3.2.6 |
 | Swagger/OpenAPI | ✓ |
 | Spring Data Pageable | ✓ |
+| Multipart File Upload | ✓ |
 
 ---
 
 # 🏗 Application Architecture
 
 ```
-                 Client
-                   |
-                   |
-             HTTP Request
-                   |
-                   ▼
-            Controller Layer
-                   |
-                   ▼
-             Service Layer
-                   |
-                   ▼
-            Repository Layer
-                   |
-                   ▼
-              MySQL Database
+                Client
+                  │
+                  ▼
+          HTTP Request
+                  │
+                  ▼
+        Controller Layer
+                  │
+                  ▼
+         Service Layer
+                  │
+                  ▼
+       Repository Layer
+                  │
+                  ▼
+           MySQL Database
+                  │
+                  ▼
+          Local File Storage
 ```
 
 ---
@@ -231,35 +222,32 @@ http://localhost:9518/swagger-ui/index.html
 ```
 src/main/java/blog
 
-│
-├── controller
-│
-├── entity
-│
-├── payloads
-│
-├── repository
-│
-├── service
-│      |
-│      └── impl
-│
-├── exception
-│
 ├── config
-│
+├── controller
+├── entity
+├── exception
+├── payloads
+├── repository
+├── services
+│   └── impl
+├── config
 └── Blogapp.java
+
+src/main/resources
+├── application.properties
+
+BlogImages/
 ```
 
 ---
 
 # 🗄 Database Entities
 
-## 👤 User Entity
+## 👤 User
 
 Stores user information.
 
-Fields:
+Fields
 
 - id
 - name
@@ -267,39 +255,37 @@ Fields:
 - password
 - about
 
-
-Relationship:
+Relationship
 
 ```
-User 1 -------- * Post
+User (1) -------- (*) Post
 ```
 
 ---
 
-## 📂 Category Entity
+## 📂 Category
 
-Stores blog categories.
+Stores category information.
 
-Fields:
+Fields
 
 - categoryId
 - categoryTitle
 - categoryDescription
 
-
-Relationship:
+Relationship
 
 ```
-Category 1 -------- * Post
+Category (1) -------- (*) Post
 ```
 
 ---
 
-## 📝 Post Entity
+## 📝 Post
 
 Stores blog post details.
 
-Fields:
+Fields
 
 - postId
 - title
@@ -309,6 +295,14 @@ Fields:
 - user
 - category
 
+Relationship
+
+```
+Post
+ ├── User
+ ├── Category
+ └── Image
+```
 
 ---
 
@@ -324,7 +318,6 @@ Fields:
 | PUT | `/api/users/{userId}` | Update User |
 | DELETE | `/api/users/{userId}` | Delete User |
 
-
 ---
 
 ## 📂 Category APIs
@@ -337,26 +330,78 @@ Fields:
 | PUT | `/api/categories/{categoryId}` | Update Category |
 | DELETE | `/api/categories/{categoryId}` | Delete Category |
 
-
 ---
 
 ## 📝 Post APIs
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/api/user/{userId}/category/{categoryId}/posts` | Create Post |
-| GET | `/api/posts/` | Get All Posts |
-| GET | `/api/posts/{postId}` | Get Post By ID |
-| PUT | `/api/posts/{postId}` | Update Post |
-| DELETE | `/api/posts/{postId}` | Delete Post |
-| GET | `/api/user/{userId}/posts` | Get Posts By User |
-| GET | `/api/category/{categoryId}/posts` | Get Posts By Category |
-| GET | `/api/posts/search?keyword=value` | Search Posts |
-
+| POST | `/api/user/{userId}/category/{categoryId}/post` | Create Post |
+| GET | `/api/post` | Get All Posts |
+| GET | `/api/post/{postId}` | Get Post By ID |
+| PUT | `/api/post/{postId}` | Update Post |
+| DELETE | `/api/post/{postId}` | Delete Post |
+| GET | `/api/user/{userId}/post` | Get Posts By User |
+| GET | `/api/category/{categoryId}/post` | Get Posts By Category |
+| GET | `/api/posts/search/{keywords}` | Search Posts |
 
 ---
 
-# ⚙️ Installation & Setup
+## 🖼 Image APIs
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/post/image/upload/{postId}` | Upload Image for a Post |
+| GET | `/api/post/image/{imageName}` | Download/View Image |
+
+---
+
+# 📸 Image Upload
+
+Upload an image for any blog post.
+
+**Endpoint**
+
+```http
+POST /api/post/image/upload/{postId}
+```
+
+**Content-Type**
+
+```
+multipart/form-data
+```
+
+**Form Data**
+
+| Key | Type |
+|------|------|
+| image | File |
+
+**Response**
+
+- Upload successful
+- Image stored on server
+- Unique image name generated using UUID
+- Post updated with uploaded image
+
+---
+
+# 📥 Image Download
+
+Download or view an uploaded image.
+
+**Endpoint**
+
+```http
+GET /api/post/image/{imageName}
+```
+
+The server returns the requested image so it can be viewed in the browser or downloaded by the client.
+
+---
+
+# ⚙ Installation & Setup
 
 ## 1. Clone Repository
 
@@ -376,8 +421,6 @@ cd Blog-Management-API
 
 ## 3. Create Database
 
-Open MySQL:
-
 ```sql
 CREATE DATABASE Blog;
 ```
@@ -386,13 +429,7 @@ CREATE DATABASE Blog;
 
 ## 4. Configure Database
 
-Update:
-
-```
-src/main/resources/application.properties
-```
-
-Add:
+Update **application.properties**
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/Blog
@@ -403,19 +440,24 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
 server.port=9518
+
+project.image=C:/Users/YourName/Desktop/BlogImages/
+
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
 ```
 
 ---
 
-## 5. Run Application
+## 5. Run the Application
 
-Using Maven:
+Using Maven
 
 ```bash
 mvn spring-boot:run
 ```
 
-or run:
+or run
 
 ```
 Blogapp.java
@@ -425,19 +467,31 @@ from IntelliJ IDEA.
 
 ---
 
+# 📌 API Testing
+
+The APIs can be tested using:
+
+- Swagger UI
+- Postman
+- cURL
+
+---
+
 # 🚀 Future Enhancements
 
-- 🔐 JWT Authentication
+- JWT Authentication
 - Spring Security Integration
-- Role Based Authorization
-- Image Upload Feature
+- Role-Based Authorization
 - Comments System
 - Like & Bookmark Feature
+- Rich Text Editor
 - Advanced Search Filters
 - Elasticsearch Integration
-- Docker Deployment
-- Cloud Database Integration
-
+- Docker Support
+- AWS S3 / Cloudinary Image Storage
+- Email Notifications
+- User Profile Images
+- API Rate Limiting
 
 ---
 
@@ -445,16 +499,16 @@ from IntelliJ IDEA.
 
 ## Amit Jangra
 
-Computer Science Engineering Student
+**Computer Science Engineering Student**
 
-
-GitHub:
+### GitHub
 
 https://github.com/amitjangra9518
-
 
 ---
 
 # ⭐ Support
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+If you found this project helpful, please consider giving it a **⭐ Star** on GitHub. Your support motivates further improvements and helps others discover the project.
+
+Happy Coding! 🚀
