@@ -52,4 +52,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse> handleIOException(IOException ex) {
         return new ResponseEntity<>(new ApiResponse(ex.getMessage(), false), HttpStatus.BAD_REQUEST);
     }
+
+    // NOTE: added catch-all. Without this, any exception not covered
+    // above (e.g. a NullPointerException, or anything thrown deep in
+    // a service) skipped our ApiResponse format entirely and fell
+    // through to Spring's default whitelabel error page, which can
+    // also leak stack trace details depending on server config.
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse> handleGenericException(Exception ex) {
+        return new ResponseEntity<>(
+                new ApiResponse("Something went wrong: " + ex.getMessage(), false),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
 }

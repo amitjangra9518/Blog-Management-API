@@ -5,7 +5,6 @@ import blog.payloads.PostDto;
 import blog.payloads.PostResponse;
 import blog.services.FileService;
 import blog.services.PostService;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -122,15 +123,31 @@ public class PostController {
 
         return ResponseEntity.ok(updatePost);
     }
-    // methed to serve files
-    @GetMapping(value = "/post/image/{imageName}",
-                produces = MediaType.IMAGE_JPEG_VALUE
-    )
+
+    // method to serve files
+    // NOTE: switched to try-with-resources. Previously the InputStream was
+    // closed manually after StreamUtils.copy(), which meant that if the
+    // copy itself threw partway through, the stream was never closed and
+    // the file handle leaked.
+    @GetMapping("/post/image/{imageName}")
     public void downloadImage(
             @PathVariable("imageName") String imageName,
             HttpServletResponse response
-    ) throws IOException{
-        InputStream resource=this.fileService.getResource(path,imageName);
-        StreamUtils.copy(resource,response.getOutputStream());
+    ) throws IOException {
+
+        String contentType = Files.probeContentType(
+                Paths.get(path, imageName)
+        );
+
+        if (contentType == null) {
+            contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
+        }
+
+        response.setContentType(contentType);
+
+        try (InputStream resource = this.fileService.getResource(path, imageName)) {
+            StreamUtils.copy(resource, response.getOutputStream());
+            response.getOutputStream().flush();
+        }
     }
 }

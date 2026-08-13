@@ -5,11 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98d9e179-6e67-47e8-970b-1f9535f4247b" name="Changes" comment="Initial commit of Blog Application project">
-      <change afterPath="$PROJECT_DIR$/src/main/java/blog/services/FileService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/blog/services/impl/FileServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blog/Security/CustomUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blog/Security/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blog/Security/JwtAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blog/Security/JwtTokenHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blog/configuration/OpenAPIConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blog/configuration/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blog/controller/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blog/enums/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blog/payloads/JwtAuthRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blog/payloads/JwtAuthResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/blog/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blog/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blog/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blog/entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/blog/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blog/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blog/payloads/PostDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blog/payloads/PostDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blog/payloads/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blog/payloads/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blog/repo/Userrepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blog/repo/Userrepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blog/services/impl/FileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blog/services/impl/FileServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blog/services/impl/Userserviceimpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blog/services/impl/Userserviceimpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,6 +43,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -48,7 +66,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -87,7 +105,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785734268479</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Initial commit of Blog Application project">
+      <option name="closed" value="true" />
+      <created>1785823631849</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1785823631850</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="UnknownFeatures">

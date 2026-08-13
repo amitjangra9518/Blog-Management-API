@@ -18,16 +18,19 @@ import java.util.UUID;
 public class FileServiceImpl implements FileService {
 
     @Override
-    public String uploadImage(String path, MultipartFile file) throws IOException {
+    public String uploadImage(String path, MultipartFile file)
+            throws IOException {
 
         // make sure a real file was actually sent
         if (file == null || file.isEmpty()) {
-            throw new IOException("No file selected. Please choose a file to upload.");
+            throw new IOException
+                    ("No file selected. Please choose a file to upload.");
         }
 
         String originalName = file.getOriginalFilename();
         if (originalName == null || !originalName.contains(".")) {
-            throw new IOException("Uploaded file must have a valid name and extension.");
+            throw new IOException
+                    ("Uploaded file must have a valid name and extension.");
         }
 
         // give the file a random, unique name so uploads never overwrite each other
@@ -41,7 +44,8 @@ public class FileServiceImpl implements FileService {
         }
 
         String fullPath = path + File.separator + newFileName;
-        Files.copy(file.getInputStream(), Paths.get(fullPath), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(file.getInputStream(), Paths.get(fullPath),
+                StandardCopyOption.REPLACE_EXISTING);
 
         return newFileName;
     }

@@ -1,5 +1,6 @@
 package blog.entity;
 
+import blog.enums.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class User {
     @Column(name = "user_name", nullable = false, length = 255)
     private String name;
 
-    @Column(name = "user_email", nullable = false, length = 100)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(name = "password", nullable = false, length = 100)
@@ -29,9 +30,19 @@ public class User {
 
     private String about;
 
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+
     public User(int id) {
         this.id = id;
     }
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Post> posts=new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL
+    )
+    private List<Post> posts = new ArrayList<>();
 }
